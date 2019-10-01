@@ -1,6 +1,13 @@
 import React from 'react';
-import axios from 'axios';
 import {UserCard, FollowerCard} from './UserCard';
+
+import styled  from 'styled-components';
+
+const StyledContainer = styled.div`
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+`;
 
 class FollowersList extends React.Component {
     constructor(props) {
@@ -49,13 +56,13 @@ class FollowersList extends React.Component {
                 <h1>GitHub User</h1>
                 <UserCard user={this.props.user} full={true} />
                 <h2>Followers</h2>
-                <div>
+                <StyledContainer>
                     {this.state.loading
                         ? 'Loading'
                         : this.state.userFollowers.map(follower => {
                               return <FollowerCard user={follower} />;
                           })}
-                </div>
+                </StyledContainer>
             </>
         );
     }
