@@ -17,6 +17,17 @@ class App extends React.Component {
       console.log(response);
       this.setState({ users: response.data })
     });
-    .catch(error => console.log(error));
+    .catch(error => console.log(error))
   }
+
+  getFollowers = () => {
+    axios
+    .get(`https://api.github.com/users/Brendajoshua/followers`)
+    .then(response => {
+      console.log(response.data);
+      this.setState({ followers: response.data })
+    })
+    .catch(err => console.log(err))
+  }
+
 export default App;
