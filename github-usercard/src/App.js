@@ -5,8 +5,9 @@ import './App.css';
 class App extends React.Component {
 
   state = {
-    users: {},
-    followers: [],
+    userName: 'brendajoshua',
+      userObject: {},
+      searchUserName: '',
   };
 
   getUser = () => {
@@ -30,7 +31,7 @@ class App extends React.Component {
     .catch(err => console.log(err))
   }
 
-  
+
   render() {
     return (
         <div className="App">
