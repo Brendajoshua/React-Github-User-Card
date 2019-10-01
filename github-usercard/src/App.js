@@ -30,4 +30,28 @@ class App extends React.Component {
     .catch(err => console.log(err))
   }
 
+  
+  render() {
+    return (
+        <div className="App">
+            <Header as="h1" content="GitHub User Card" />
+            <Form onSubmit={this.handleSubmit}>
+                <Form.Group>
+                    <Form.Input
+                        name="github username"
+                        placeholder="Github Username"
+                        value={this.state.searchUserName}
+                        onChange={this.handleChange}
+                    />
+                    <Form.Button content="Submit" />
+                </Form.Group>
+            </Form>
+            <FollowersList
+                userName={this.state.userName}
+                user={this.state.userObject}
+            />
+        </div>
+    );
+}
+}
 export default App;
