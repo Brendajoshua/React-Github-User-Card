@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import './App.css';
+import { Header, Form } from 'semantic-ui-react';
+import FollowersList from './Components/FollowersList';
 
 class App extends React.Component {
 
@@ -10,26 +12,44 @@ class App extends React.Component {
       searchUserName: '',
   };
 
-  getUser = () => {
-    axios
-    .get('https://api.github.com/users/Brendajoshua')
-    // .then(res => console.log(res))
-    .then(response => {
-      console.log(response);
-      this.setState({ users: response.data })
-    });
-    .catch(error => console.log(error))
-  }
+  componentDidMount() {
+    fetch('https://api.github.com/users/' + this.state.userName)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Failed to fetch');
+            }
+            return res.json();
+        })
+        .then(res => {
+            console.log(res);
+            this.setState({ userObject: res });
+        })
+        .catch(err => console.log(err));
+}
 
-  getFollowers = () => {
-    axios
-    .get(`https://api.github.com/users/Brendajoshua/followers`)
-    .then(response => {
-      console.log(response.data);
-      this.setState({ followers: response.data })
-    })
-    .catch(err => console.log(err))
-  }
+componentDidUpdate() {
+    fetch('https://api.github.com/users/' + this.state.userName)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Failed to fetch');
+            }
+            return res.json();
+        })
+        .then(res => this.setState({ userObject: res }))
+        .catch(err => console.log(err));
+}
+
+handleSubmit = () => {
+    this.setState({
+        userName: this.state.searchUserName,
+    });
+};
+
+handleChange = e => {
+    this.setState({
+        searchUserName: e.target.value,
+    });
+};
 
 
   render() {
